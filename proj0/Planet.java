@@ -1,5 +1,5 @@
 
-class Planet{
+public class Planet{
     public double xxPos;
     public double yyPos;
     public double xxVel;
@@ -78,9 +78,9 @@ class Planet{
         this.yyPos = this.yyPos + yyVel * dt;
     }
 
-    public void draw(Planet p){
-        String img_path = "images/" + p.imgFileName;
-        StdDraw.picture(p.xxPos, p.yyPos, img_path);
+    public void draw(){
+        String img_path = "images/" + this.imgFileName;
+        StdDraw.picture(this.xxPos, this.yyPos, img_path);
     }
 }
 
