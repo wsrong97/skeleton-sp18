@@ -33,7 +33,7 @@ public class NBody{
             String imageToDraw = "images/starfield.jpg";
             StdDraw.picture(0, 0, imageToDraw);
             for (Planet p: planets){
-                p.draw(p);
+                p.draw();
             }
             StdDraw.show();
             StdDraw.pause(10);
