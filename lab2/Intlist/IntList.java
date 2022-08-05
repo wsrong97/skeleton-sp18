@@ -61,6 +61,16 @@ public class IntList {
         }
         return res;
     }
+//        //square the first element and then square the next
+//        IntList tem_l = new IntList(L.first * L.first, null);
+//        IntList first_term = tem_l;
+//        L = L.rest;
+//        while(L != null){
+//            tem_l = new IntList(L.first * L.first, null);
+//            L = L.rest;
+//            first_term.rest = tem_l;
+//        }
+
 
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
@@ -82,7 +92,29 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+//        //recursive
+////        B == null return A
+//        if (B == null) {
+//            System.out.println(A.toString());
+//            return A;
+//        }
+//        IntList C = B.rest;
+//        B.rest = A;
+//        return dcatenate(B, C);
+//    }
+        //iteratively
+        if (A.rest == null){
+            A.rest= B;
+            return A;
+        }
+        else {
+            IntList C = A.rest;
+            while (C.rest != null){
+                C = C.rest;
+            }
+            C.rest = B;
+            return A;
+        }
     }
 
     /**
@@ -91,7 +123,41 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        //add all A
+        IntList C = new IntList(A.first, null);
+        if (A.rest == null){
+            A.rest = B;
+            return new IntList(A.first, B);
+        }
+        IntList D = A.rest;
+        while (D.rest != null){
+            IntList E = new IntList(D.first, null);
+
+            IntList G = C;
+            while (G.rest !=null) {
+                G = G.rest;
+            }
+            G.rest = E;
+            D = D.rest;
+        }
+        //D.rest = null
+        IntList E = new IntList(D.first, null);
+        IntList G = C;
+        while (G.rest !=null) {
+            G = G.rest;
+        }
+        G.rest = E;
+
+        System.out.println(C.toString());
+        //add B
+        IntList F = C;
+        while (F.rest != null){
+            F = F.rest;
+        }
+        F.rest = B;
+        System.out.println(A.toString());
+        return C;
+
     }
 
 
