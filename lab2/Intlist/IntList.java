@@ -93,16 +93,20 @@ public class IntList {
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
 //        //recursive
-////        B == null return A
-//        if (B == null) {
+//        //base case: last element of A, connect to B directly
+//        //assumption: for m< n, returns a InList of m element +B, for m+1, object m+1's reference to dcatenate return
+//        //induction: A.rest = IntList.dcatenate(A.rest, B)
+//        if (A.rest == null) {
+//            A.rest = B;
 //            System.out.println(A.toString());
-//            return A;
+//        } else {
+//            A.rest = IntList.dcatenate(A.rest, B);
 //        }
-//        IntList C = B.rest;
-//        B.rest = A;
-//        return dcatenate(B, C);
+//        return A;
 //    }
         //iteratively
+        //[test null argument]
+        if (A == null) return B;
         if (A.rest == null){
             A.rest= B;
             return A;
@@ -123,41 +127,45 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        //add all A
-        IntList C = new IntList(A.first, null);
+//        //iteratively
+//        //construct a new A
+//        IntList D = A;
+//        IntList E; //for recording the first element
+//        E = new IntList(D.first, null);
+//        if(D.rest == null) {  //only one element
+//            return new IntList(E.first, B);
+//        }
+//        //>= 2 elements in A
+//        IntList temp1 = E;
+//        //create and connect to the first one
+//        do{
+//            D = D.rest;
+//            IntList temp2 = new IntList(D.first, null); //create
+//            temp1.rest = temp2;  //connect
+//            temp1 = temp2; //reset reference always the last one
+//        }while(D.rest != null);
+//        temp1.rest = B;
+//        return E;
+//
+//        }
+
+
+        //recursive
+        //base case:
+        //assumption: catenate for every (subA) [--(****)] returns a new list with B following in the back.
+        //induction: for one consecutively larger than subA, A.rest = IntList.catenate(A.rest, B)
+//[test null argument]
+        if (A == null) return B;
         if (A.rest == null){
-            A.rest = B;
-            return new IntList(A.first, B);
+            IntList C = new IntList(A.first, null);
+            C.rest = B;
+            return C;
         }
-        IntList D = A.rest;
-        while (D.rest != null){
-            IntList E = new IntList(D.first, null);
-
-            IntList G = C;
-            while (G.rest !=null) {
-                G = G.rest;
-            }
-            G.rest = E;
-            D = D.rest;
+        else {
+            IntList D = new IntList(A.first, null);
+            D.rest = IntList.catenate(A.rest, B);
+            return D;
         }
-        //D.rest = null
-        IntList E = new IntList(D.first, null);
-        IntList G = C;
-        while (G.rest !=null) {
-            G = G.rest;
-        }
-        G.rest = E;
-
-        System.out.println(C.toString());
-        //add B
-        IntList F = C;
-        while (F.rest != null){
-            F = F.rest;
-        }
-        F.rest = B;
-        System.out.println(A.toString());
-        return C;
-
     }
 
 
