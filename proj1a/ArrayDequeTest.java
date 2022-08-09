@@ -117,12 +117,12 @@ public class ArrayDequeTest {
         lld1.removeFirst();
         System.out.print(lld1.get(2) + " ");
 
-        passed = checkSize(4, lld1.size()) && passed;
+        passed = checkSize(7, lld1.size()) && passed;
         lld1.removeLast();
-        passed = checkSize(3, lld1.size()) && passed;
+        passed = checkSize(6, lld1.size()) && passed;
         lld1.removeFirst();
         lld1.printDeque();
-        passed = checkSize(2, lld1.size()) && passed;
+        passed = checkSize(5, lld1.size()) && passed;
         printTestStatus(passed);
         ArrayDeque lld2 = new ArrayDeque<>(lld1);
         lld2.printDeque();

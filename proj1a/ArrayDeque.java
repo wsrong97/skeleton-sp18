@@ -12,7 +12,7 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public ArrayDeque(ArrayDeque<T> other){
+    public ArrayDeque(ArrayDeque other){
 //        ArrayDeque this = new ArrayDeque();
         int size = other.items.length;
         //this or not?
@@ -33,15 +33,44 @@ public class ArrayDeque<T> {
     }
     private void resize(int capacity) {
         T[] a = (T []) new Object[capacity];
-        //when first element is in the beginning?
-        if (nextFirst == size -1){
-        System.arraycopy(items, 0, a, 0, size);
+
+        //two resize cases: when low memory usage; when full.
+        if(capacity /size ==2){
+            //the other case downsize case capacity/size = 1/2* efficiency > 2
+            if(nextFirst== size-1 &&nextLast ==0){
+                System.arraycopy(items, 0, a, 0, size);
+            }
+            else if(nextFirst==0 && nextLast == size-1){
+                System.arraycopy(items, 0, a, 0, size);
+            }
+            else{
+                System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
+                System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
+            }
 
         }
-        else {//when not?
-            System.arraycopy(items, nextFirst+1,a,0, size-nextFirst-1);
-            System.arraycopy(items,0, a,size-nextFirst-1, nextLast);
+        else{
+            //downsize
+            if(nextFirst== items.length-1&& nextLast == size-1){
+                System.arraycopy(items, 0, a, 0, size);
+            }
+            else if(nextFirst== items.length-size && nextLast == 0){
+                System.arraycopy(items, 0, a, nextFirst+1, size);
+            }
+            else {
+                System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
+                System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
+            }
         }
+//        //when first element is in the beginning?
+//        if (nextFirst == size -1){
+//        System.arraycopy(items, 0, a, 0, size);
+//
+//        }
+//        else {//when not?
+//            System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
+//            System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
+//        }
         items = a;
         nextLast = size;
         nextFirst = capacity -1;
