@@ -40,20 +40,22 @@ public class LinkedListDeque<T> {
             sentinel.prev = sentinel.next;
         }
         else {
-            sentinel.next.prev = new ListNode(item, sentinel, sentinel.next);
-            sentinel.next= sentinel.next.prev;
+            ListNode tmp = new ListNode(item, sentinel, sentinel.next);
+            sentinel.next.prev = tmp;
+            sentinel.next = tmp;
         }
         size += 1;
     }
     public void addLast(T item){
-        // no elment in the deque
+        // no element in the deque
         if(isEmpty()){
             sentinel.next = new ListNode(item, sentinel, sentinel);
             sentinel.prev = sentinel.next;
         }
         else {
-            sentinel.prev.next = new ListNode(item, sentinel.prev, sentinel);
-            sentinel.prev= sentinel.prev.next;
+            ListNode tmp= new ListNode(item, sentinel.prev, sentinel);
+            sentinel.prev.next = tmp;
+            sentinel.prev = tmp;
         }
         size += 1;
     }
@@ -75,14 +77,12 @@ public class LinkedListDeque<T> {
         }
         else {
             size -= 1;
+            ListNode nextFirst = sentinel.next.next;
             ListNode temp = sentinel.next;
-            sentinel.next = sentinel.next.next;
-            if (sentinel.next != sentinel) {
-                sentinel = sentinel.next.prev;
-            }
-            else{
-                sentinel.prev = sentinel;
-            }
+            //add
+            sentinel.next = nextFirst;
+            nextFirst.prev = sentinel;
+            //remove? no reference to that object, might go to garbage collector directly
             return temp.item;
         }
     }
@@ -93,18 +93,20 @@ public class LinkedListDeque<T> {
         else {
             size -= 1;
             ListNode temp = sentinel.prev;
-            sentinel.prev = sentinel.prev.prev;
-            sentinel = sentinel.prev.next;
+            ListNode nextLast = sentinel.next.next;
+            //add
+            sentinel.prev = nextLast;
+            nextLast.next = sentinel;
             return temp.item;
         }
     }
 
     public T get(int index){
-        if (index > size || index < 0){
+        if (index >= size || index < 0){
             return null;
         }
         ListNode temp = sentinel;
-        if (index > size/2){
+        if (index >= size/2){
             for (int i = size - index; i>0; i-=1){
                 temp = temp.prev;
             }
@@ -118,12 +120,12 @@ public class LinkedListDeque<T> {
     }
 //additional method to implement
     public T getRecursive(int index){
-        if (index > size || index < 0){
+        if (index >= size || index < 0){
             return null;
         }
         ListNode temp;
-        if (index > size/2){
-            temp = recurHelper(index, true);
+        if (index >= size/2){
+            temp = recurHelper(index + 1, true);
         }
         else{
             temp = recurHelper(size - index, false);
@@ -131,7 +133,7 @@ public class LinkedListDeque<T> {
         return temp.item;
     }
 
-    public ListNode recurHelper(int i, boolean reverse){
+    private ListNode recurHelper(int i, boolean reverse){
         if(i == 0){
             return sentinel;
         }

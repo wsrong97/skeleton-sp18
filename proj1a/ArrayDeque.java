@@ -1,6 +1,6 @@
 
 public class ArrayDeque<T> {
-    static final int RFACTOR = 2;
+    private static final int RFACTOR = 2;
     private T[] items;
     private int size;
     private int nextFirst;
@@ -12,7 +12,7 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public ArrayDeque(ArrayDeque other){
+    public ArrayDeque(ArrayDeque<T> other){
 //        ArrayDeque this = new ArrayDeque();
         int size = other.items.length;
         //this or not?
@@ -25,7 +25,7 @@ public class ArrayDeque<T> {
 
     private void checkusage(){
         if(items.length >= 16){
-            double efficiency = size/ items.length;
+            float efficiency = (float)size/ (float)items.length;
             if (efficiency < 0.25){
                 resize(items.length/2);
             }
@@ -33,9 +33,19 @@ public class ArrayDeque<T> {
     }
     private void resize(int capacity) {
         T[] a = (T []) new Object[capacity];
+        //when first element is in the beginning?
+        if (nextFirst == size -1){
         System.arraycopy(items, 0, a, 0, size);
+
+        }
+        else {//when not?
+            System.arraycopy(items, nextFirst+1,a,0, size-nextFirst-1);
+            System.arraycopy(items,0, a,size-nextFirst-1, nextLast);
+        }
         items = a;
-        nextFirst = size;
+        nextLast = size;
+        nextFirst = capacity -1;
+
     }
     public void addFirst(T item){
         if(size == items.length) {
@@ -45,7 +55,7 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         //invariant
         if (size ==0){
-            nextLast =1;
+            nextLast =1; // nextLast only changes in this scenario under addFirst
         }
         size += 1;
         nextFirst = (items.length + nextFirst - 1) % items.length;
@@ -59,7 +69,7 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         //invariant
         if (size ==0){
-            nextFirst = items.length -1;
+            nextFirst = items.length -1; // nextFirst only changes in this scenario under addLast
         }
         size += 1;
         nextLast = (nextLast + 1) % items.length;
@@ -84,58 +94,68 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst(){
-        checkusage();
         if (isEmpty()){
             return null;
         }
         //non empty
         int index = (nextFirst + 1)% items.length;
         T temp = items[index];
-        items[index] = null;
+//        items[index] = null; unnecessary for maintaining invariant
         //invariant
         size -=1;
         nextFirst = index ;
         if (size ==0){
             nextLast = 0;
         }
+        checkusage();
         return temp;
 
     }
     public T removeLast(){
-        checkusage();
         if (isEmpty()){
             return null;
         }
         // non empty
         int index = (nextLast - 1 + items.length)% items.length;
         T temp = items[index];
-        items[index] = null;
+//        items[index] = null;
         //invariant
         size -=1;
         nextLast = index;
         if (size ==0){
             nextFirst = 0;
         }
+        checkusage();
         return temp;
     }
-    public T get(int index){
-        if (index > size-1){// out of range
+    public T get(int index) {
+        if (index >= size) {// out of range
             return null;
         }
-        //nextLast <= nextFirst
-        if(nextLast < nextFirst){
-            if (index >=0){
-                index = (index + nextFirst +1)% items.length;
-                return items[index];
-            }
-            else{
-                return null;
-            }
-        }
-        else{ //(nextLast == nextFirst)
+        //translate this index to the real implementation
+        if (index + nextFirst > size) {
+            index = (index + nextFirst+1)% items.length;
             return items[index];
+        } else {
+            //<size
+            return items[index + nextFirst];
         }
     }
+//        ////
+//        //nextLast <= nextFirst
+//        if(nextLast < nextFirst){
+//            if (index >=0){
+//                index = (index + nextFirst +1)% items.length;
+//                return items[index];
+//            }
+//            else{
+//                return null;
+//            }
+//        }
+//        else{ //(nextLast == nextFirst)
+//            return items[index];
+//        }
+
 }
 
 
