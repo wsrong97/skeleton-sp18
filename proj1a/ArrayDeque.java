@@ -35,14 +35,14 @@ public class ArrayDeque<T> {
         T[] a = (T []) new Object[capacity];
 
         //two resize cases: when low memory usage; when full.
-        if(capacity /size ==2){
+        if(capacity /size ==2 && capacity%size==0){
             //the other case downsize case capacity/size = 1/2* efficiency > 2
             if(nextFirst== size-1 &&nextLast ==0){
                 System.arraycopy(items, 0, a, 0, size);
             }
-            else if(nextFirst==0 && nextLast == size-1){
-                System.arraycopy(items, 0, a, 0, size);
-            }
+//            else if(nextFirst==0 && nextLast == size-1){
+//                System.arraycopy(items, 0, a, 0, size);
+//            }
             else{
                 System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
                 System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
