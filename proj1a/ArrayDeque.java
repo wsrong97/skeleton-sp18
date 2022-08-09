@@ -57,23 +57,15 @@ public class ArrayDeque<T> {
             else if(nextLast == 0){//boundary
                 System.arraycopy(items, 0, a, nextFirst+1, size);
             }
-            else if(nextFirst< nextLast && (nextLast-nextFirst+1== size)){
-                System.arraycopy(items, 0, a, nextFirst+1, size);
+            else if(nextFirst< nextLast && (nextLast-nextFirst-1== size)){
+                System.arraycopy(items, nextFirst+1, a,0, size);
             }
             else {
                 System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
                 System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
             }
         }
-//        //when first element is in the beginning?
-//        if (nextFirst == size -1){
-//        System.arraycopy(items, 0, a, 0, size);
-//
-//        }
-//        else {//when not?
-//            System.arraycopy(items, nextFirst+1,a,0, items.length-nextFirst-1);
-//            System.arraycopy(items,0, a,items.length-nextFirst-1, nextLast);
-//        }
+
         items = a;
         nextLast = size;
         nextFirst = capacity -1;
@@ -176,20 +168,6 @@ public class ArrayDeque<T> {
             return items[(index + nextFirst +1) % items.length];
         }
     }
-//        ////
-//        //nextLast <= nextFirst
-//        if(nextLast < nextFirst){
-//            if (index >=0){
-//                index = (index + nextFirst +1)% items.length;
-//                return items[index];
-//            }
-//            else{
-//                return null;
-//            }
-//        }
-//        else{ //(nextLast == nextFirst)
-//            return items[index];
-//        }
 
 }
 
