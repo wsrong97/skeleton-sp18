@@ -75,15 +75,48 @@ public class ArrayDequeTest {
         lld1.removeFirst();
         // should be empty
         passed = checkEmpty(true, lld1.isEmpty()) && passed;
-        lld1.printDeque();
-        lld1.addFirst(10);
-        lld1.printDeque();
-        lld1.addFirst(10);
-        lld1.printDeque();
-        lld1.addLast(3);
-        lld1.printDeque();
-        lld1.addLast(7);
-        lld1.printDeque();
+
+//        lld1.addFirst(10);
+//        lld1.printDeque();
+//        lld1.addFirst(10);
+//        lld1.printDeque();
+//        lld1.addLast(3);
+//        lld1.printDeque();
+//        lld1.addLast(7);
+//        lld1.printDeque();
+
+//        lld1.addLast(0);
+//        lld1.printDeque();
+//        lld1.addFirst(1);
+//        lld1.printDeque();
+//        lld1.isEmpty();
+////        lld1.printDeque();
+//        lld1.size();
+////        lld1.printDeque();
+//        lld1.removeLast();
+//        lld1.printDeque();
+//        lld1.removeLast();
+//        lld1.printDeque();
+//        lld1.addLast(6);
+//        lld1.printDeque();
+//        lld1.size();
+//        lld1.removeFirst();
+//        lld1.printDeque();
+
+
+        lld1.addFirst(0);
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.get(0);
+        lld1.addFirst(4);
+        lld1.addLast(5);
+        lld1.addFirst(6);
+        lld1.get(5);
+        lld1.addLast(8);
+        lld1.addFirst(9);
+        lld1.removeFirst();
+        System.out.print(lld1.get(2) + " ");
+
         passed = checkSize(4, lld1.size()) && passed;
         lld1.removeLast();
         passed = checkSize(3, lld1.size()) && passed;

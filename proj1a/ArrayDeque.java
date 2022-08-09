@@ -105,26 +105,29 @@ public class ArrayDeque<T> {
         //invariant
         size -=1;
         nextFirst = index ;
-        if (size ==0){
+        if (size ==0){ //cases when no element after removal. reset
             nextLast = 0;
+            nextFirst = 0;
         }
         return temp;
 
     }
+
     public T removeLast(){
         checkusage();
         if (isEmpty()){
             return null;
         }
         // non empty
-        int index = (nextLast - 1 + items.length)% items.length;
+        int index = (nextLast - 1 + items.length )% items.length;
         T temp = items[index];
 //        items[index] = null;
         //invariant
         size -=1;
         nextLast = index;
-        if (size ==0){
+        if (size ==0){//cases when no element after removal. reset
             nextFirst = 0;
+            nextLast = 0;
         }
         return temp;
     }
@@ -138,7 +141,7 @@ public class ArrayDeque<T> {
             return items[index];
         } else {
             //<size
-            return items[index + nextFirst +1];
+            return items[(index + nextFirst +1) % items.length];
         }
     }
 //        ////
