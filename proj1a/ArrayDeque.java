@@ -94,6 +94,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst(){
+        checkusage();
         if (isEmpty()){
             return null;
         }
@@ -107,11 +108,11 @@ public class ArrayDeque<T> {
         if (size ==0){
             nextLast = 0;
         }
-        checkusage();
         return temp;
 
     }
     public T removeLast(){
+        checkusage();
         if (isEmpty()){
             return null;
         }
@@ -125,7 +126,6 @@ public class ArrayDeque<T> {
         if (size ==0){
             nextFirst = 0;
         }
-        checkusage();
         return temp;
     }
     public T get(int index) {
@@ -138,7 +138,7 @@ public class ArrayDeque<T> {
             return items[index];
         } else {
             //<size
-            return items[index + nextFirst];
+            return items[index + nextFirst +1];
         }
     }
 //        ////
