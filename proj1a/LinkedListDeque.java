@@ -93,7 +93,7 @@ public class LinkedListDeque<T> {
         else {
             size -= 1;
             ListNode temp = sentinel.prev;
-            ListNode nextLast = sentinel.next.next;
+            ListNode nextLast = sentinel.prev.prev;
             //add
             sentinel.prev = nextLast;
             nextLast.next = sentinel;
@@ -125,10 +125,10 @@ public class LinkedListDeque<T> {
         }
         ListNode temp;
         if (index >= size/2){
-            temp = recurHelper(index + 1, true);
+            temp = recurHelper(size -index, true);
         }
         else{
-            temp = recurHelper(size - index, false);
+            temp = recurHelper(index+1, false);
         }
         return temp.item;
     }

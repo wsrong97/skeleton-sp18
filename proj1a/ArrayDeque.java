@@ -125,6 +125,7 @@ public class ArrayDeque<T> {
         //non empty
         int index = (nextFirst + 1)% items.length;
         T temp = items[index];
+//        T temp = get(index);
 //        items[index] = null; unnecessary for maintaining invariant
         //invariant
         size -=1;
@@ -156,19 +157,20 @@ public class ArrayDeque<T> {
         return temp;
     }
     public T get(int index) {
-        if (index >= size) {// out of range
+        if (index >= size ||index <0) {// out of range
+            return null;
+        }
+        if (isEmpty() && index >=0){
             return null;
         }
         //translate this index to the real implementation
-        if (index + nextFirst > size) {
-            index = (index + nextFirst+1)% items.length;
-            return items[index];
-        } else {
-            //<size
-            return items[(index + nextFirst +1) % items.length];
+//        if (index + nextFirst > size) {
+        index = (index + nextFirst+1)% items.length;
+        return items[index];
+//        } else {
+//            //<size
+//            return items[(index + nextFirst +1) % items.length];
         }
-    }
-
 }
 
 
