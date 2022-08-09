@@ -51,10 +51,13 @@ public class ArrayDeque<T> {
         }
         else{
             //downsize
-            if(nextFirst== items.length-1&& nextLast == size-1){
+            if(nextFirst == size-1){//boundary
                 System.arraycopy(items, 0, a, 0, size);
             }
-            else if(nextFirst== items.length-size && nextLast == 0){
+            else if(nextLast == 0){//boundary
+                System.arraycopy(items, 0, a, nextFirst+1, size);
+            }
+            else if(nextFirst< nextLast && (nextLast-nextFirst+1== size)){
                 System.arraycopy(items, 0, a, nextFirst+1, size);
             }
             else {
