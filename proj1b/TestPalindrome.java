@@ -27,11 +27,6 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("?a?"));//?
         assertTrue(palindrome.isPalindrome(("cs61b16sc")));
-        In in = new In("../library-sp18/data/panlindrome.txt");
-        while (!in.isEmpty()){
-            String s = in.readString();
-            assertTrue(palindrome.isPalindrome(s));
-        }
         assertFalse(palindrome.isPalindrome("sfa"));
         assertFalse(palindrome.isPalindrome("asfas"));
         //
