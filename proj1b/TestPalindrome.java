@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import javax.swing.*;
+
 import static org.junit.Assert.*;
 
 public class TestPalindrome {
@@ -22,6 +25,8 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("Affa"));
         assertTrue(palindrome.isPalindrome("a"));
         assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("?a?"));//?
+        assertTrue(palindrome.isPalindrome(("cs61b16sc")));
         In in = new In("../library-sp18/data/panlindrome.txt");
         while (!in.isEmpty()){
             String s = in.readString();
@@ -33,7 +38,7 @@ public class TestPalindrome {
         CharacterComparator obo = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake",obo));
         assertFalse(palindrome.isPalindrome("acB",obo));
-
+        assertFalse(palindrome.isPalindrome("acca",obo));//?
         CharacterComparator ob5 = new OffByN(5);
         assertTrue(palindrome.isPalindrome("flaqa",ob5));
         CharacterComparator ob31 = new OffByN(31);
