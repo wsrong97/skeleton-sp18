@@ -51,7 +51,7 @@ public class ArrayDeque<T> {
         }
         else{
             //downsize
-            if(nextFirst == size-1){//boundary
+            if(nextFirst == items.length - 1){//boundary
                 System.arraycopy(items, 0, a, 0, size);
             }
             else if(nextLast == 0){//boundary
